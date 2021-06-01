@@ -1,3 +1,4 @@
+import { withAuthenticator } from 'aws-amplify-react';
 import React from 'react';
 import './App.css';
 import CreatePost from './components/CreatePost';
@@ -12,4 +13,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App, {includeGreetings: true});

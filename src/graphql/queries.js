@@ -36,31 +36,40 @@ export const getPost = /* GraphQL */ `
     }
   }
 `;
-export const listPosts = /* GraphQL */ `
-  query ListPosts(
-    $filter: ModelPostFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        postOwnerId
-        postOwnerUsername
-        postTitle
-        postBody
-        createdAt
-        comments {
-          nextToken
+export const listPosts = `query ListPosts(
+  $filter: ModelPostFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      postOwnerId
+      postOwnerUsername
+      postTitle
+      postBody
+      createdAt
+      comments {
+        items {
+           id
+           commentOwnerId
+           commentOwnerUsername
+           content
+           createdAt
         }
-        likes {
-          nextToken
-        }
-        updatedAt
       }
-      nextToken
+      likes {
+        items {
+          id
+          numberLikes
+          likeOwnerId
+          likeOwnerUsername
+        }
+      }
     }
+    nextToken
   }
+}
 `;
 export const getComment = /* GraphQL */ `
   query GetComment($id: ID!) {
